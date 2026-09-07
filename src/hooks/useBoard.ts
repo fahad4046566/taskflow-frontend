@@ -3,7 +3,6 @@ import { useAuth } from "@/context/auth-context";
 import api from "@/lib/api";
 import { Board, CreateBoard } from "@/types/board";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
 import { toast } from "sonner";
 
 const fetchBoards = async (): Promise<Board[]> => {

@@ -11,11 +11,13 @@ import { useBoards, useDeleteBoards } from "@/hooks/useBoard";
 import { Board } from "@/types/board";
 import BoardForm from "./BoardForm";
 import { Button } from "@/components/ui/button";
-import { CirclePlus, Pencil, Trash } from "lucide-react";
+import { ArrowRight, CirclePlus, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import { ConfirmDialog } from "@/app/shared/ConfirmDialog";
+import { useRouter } from "next/navigation";
 
 export default function BoardCards() {
+  const router = useRouter();
   const { data: boards, isLoading, isError, error } = useBoards();
   const { mutate: deleteBoard } = useDeleteBoards();
 
@@ -71,10 +73,19 @@ export default function BoardCards() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {boards?.map((board: Board) => (
             <Card key={board.id} className="flex flex-col">
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg font-semibold">
                   {board.title}
                 </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => router.push(`boards/${board.id}`)}
+                  className="h-8 px-3 text-gray-500 hover:text-gray-700"
+                >
+                  Open
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Button>
               </CardHeader>
               <CardContent className="flex-1">
                 <CardDescription className="text-sm text-gray-600">
