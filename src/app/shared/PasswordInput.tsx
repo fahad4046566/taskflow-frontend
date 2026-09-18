@@ -2,8 +2,17 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
-export function PasswordInput({ field, placeholder = "••••••••" }) {
+interface PasswordInputProps<T extends FieldValues> {
+  field: ControllerRenderProps<T, Path<T>>;  // ✅ Generic
+  placeholder?: string;
+}
+
+export function PasswordInput<T extends FieldValues>({
+  field,
+  placeholder = "••••••••",
+}: PasswordInputProps<T>) {
   const [show, setShow] = useState(false);
 
   return (
