@@ -1,6 +1,7 @@
 "use client";
 import api from "@/lib/api";
-import { CardInterface, CreateCard } from "@/types/card";
+import { CardInterface } from "@/types/card";
+import { CreateCard } from "@/validations/card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 

@@ -22,3 +22,16 @@ export interface BoardFormProps {
     visibility: "private" | "public" | "workspace";
   } | null;
 }
+
+export interface BoardMember {
+  id: number;
+  boardId: number;
+  userId: number;
+  role: "admin" | "member" | "viewer";
+  joinedAt: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}

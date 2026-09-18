@@ -12,11 +12,18 @@ export interface CardInterface {
   updatedAt: string;
 }
 
-export type CreateCard = Omit<CardInterface, "id" | "createdAt" | "updatedAt">;
+// export type CreateCard = Omit<CardInterface, "id" | "createdAt" | "updatedAt">;
 
 export interface CardFormProps {
   listId: number;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   editData?: Omit<CardInterface, "createdAt" | "updatedAt"> | null;
+}
+
+export interface CardDetailProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  card: CardInterface | null;
+  boardId:number
 }

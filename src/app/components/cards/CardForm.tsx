@@ -4,8 +4,8 @@ import { SelectFormField } from "@/app/shared/SelectFormField";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useCreateCards, useUpdateCards } from "@/hooks/useCards";
-import { CardFormProps, CreateCard } from "@/types/card";
-import { CreateCardSchema } from "@/validations/card";
+import { CardFormProps } from "@/types/card";
+import { CreateCard, CreateCardSchema } from "@/validations/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ const CardForm = ({
       description: "",
       position: 0,
       dueDate: "",
-      priority: "LOW",
+      priority: "LOW" as "LOW" | "MEDIUM" | "HIGH" | "URGENT",
     },
   });
   useEffect(() => {

@@ -102,7 +102,7 @@ const List = ({ boardId }: { boardId: number }) => {
       </CardHeader>
 
       <div className="flex-1 px-4 py-2 overflow-y-auto min-h-0">
-        <Cards listId={list.id} />
+        <Cards listId={list.id} boardId={boardId}/>
       </div>
     </Card>
   ))}

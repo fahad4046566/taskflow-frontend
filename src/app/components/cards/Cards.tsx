@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { useCards, useDeleteCards } from "@/hooks/useCards";
 import { CardInterface } from "@/types/card";
-import { CirclePlus, MoreHorizontalIcon, Pencil, Trash } from "lucide-react";
+import { CirclePlus, Info, MoreHorizontalIcon, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import CardForm from "./CardForm";
 import { ConfirmDialog } from "@/app/shared/ConfirmDialog";
@@ -20,8 +20,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import CardDetail from "./CardDetail";
 
-const Cards = ({ listId }: { listId: number }) => {
+const Cards = ({ listId,boardId }: { boardId:number,listId: number }) => {
   const { data: cards, isLoading, isError, error } = useCards(listId);
   const { mutate: deleteCard } = useDeleteCards();
 
@@ -29,6 +30,13 @@ const Cards = ({ listId }: { listId: number }) => {
   const [selectedCard, setSelectedCard] = useState<CardInterface | null>(null);
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailCard, setDetailCard] = useState<CardInterface | null>(null);
+
+  const handleViewDetails = (card: CardInterface) => {
+    setDetailCard(card);
+    setDetailOpen(true);
+  };
 
   const handleAddNew = () => {
     setSelectedCard(null);
@@ -81,6 +89,11 @@ const Cards = ({ listId }: { listId: number }) => {
                       <MoreHorizontalIcon className="h-4 w-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => handleViewDetails(card)}>
+                         <Info className="h-4 w-4 mr-2"/>
+                        View Details
+                      </DropdownMenuItem>
+                        <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => handleEditClick(card)}>
                         <Pencil className="h-4 w-4 mr-2" />
                         Edit
@@ -130,6 +143,12 @@ const Cards = ({ listId }: { listId: number }) => {
         cancelText="Cancel"
         onConfirm={confirmDelete}
         variant="destructive"
+      />
+      <CardDetail
+        boardId={boardId} 
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        card={detailCard}
       />
     </>
   );
